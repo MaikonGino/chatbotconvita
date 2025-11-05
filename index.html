@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chatbot PNL - Convita</title>
+
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="apple-touch-icon" href="logo.png">
+
+  <meta property="og:title" content="Assistente Virtual Convita">
+  <meta property="og:description" content="Tire suas dúvidas sobre nossos projetos e serviços com nosso assistente de IA.">
+  <meta property="og:image" content="logo.png">
+  <meta property="og:url" content="https://convitads.web.app/home">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style-mobile.css">
+
+  <link rel="stylesheet" media="screen and (min-width: 768px)" href="style-desktop.css">
+</head>
+
+<body>
+
+<div class="page-wrapper">
+  <header class="simulated-header">
+    <div class="logo">Convita</div>
+    <nav>
+      <a href="https://convitads.web.app/servicos" target="_blank">Serviços</a>
+      <a href="https://convitads.web.app/portfolio" target="_blank">Portfólio</a>
+      <a href="https://convitads.web.app/fale_com_a_gente" target="_blank">Contato</a>
+    </nav>
+  </header>
+  <main class="simulated-main">
+    <h1>Soluções digitais personalizadas!</h1>
+    <p>Criação profissional que encanta e impressiona seus convidados</p>
+    <div class="button-group">
+      <a href="https://convitads.web.app/portfolio" target="_blank" class="btn-primary">Ver Portfólio &rarr;</a>
+      <a href="https://convitads.web.app/fale_com_a_gente" target="_blank" class="btn-secondary">Solicitar Orçamento</a>
+    </div>
+  </main>
+</div> <button id="chat-bubble" class="chat-bubble" aria-label="Abrir chat">
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round"
+          d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+  </svg>
+</button>
+
+<div id="chat-window" class="chat-window">
+  <header class="chat-header">
+    <div class="header-content">
+      <h3>Assistente Convita</h3>
+      <button id="voice-toggle" class="voice-toggle-btn" aria-label="Ativar voz do assistente">
+        <svg class="icon-off" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M13.5 4.06c0-1.336-1.616-2.005-2.56-1.06l-4.5 4.5H4.508c-1.141 0-2.318.664-2.66 1.905A9.76 9.76 0 001.5 12c0 1.598.37 3.11.992 4.595.342 1.24 1.518 1.905 2.66 1.905h1.932l4.5 4.5c.944.945 2.56.276 2.56-1.06V4.06zM17.78 9.22a.75.75 0 10-1.06 1.06L18.44 12l-1.72 1.72a.75.75 0 101.06 1.06l1.72-1.72 1.72 1.72a.75.75 0 101.06-1.06L20.56 12l1.72-1.72a.75.75 0 00-1.06-1.06l-1.72 1.72-1.72-1.72z" />
+        </svg>
+        <svg class="icon-on" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M13.5 4.06c0-1.336-1.616-2.005-2.56-1.06l-4.5 4.5H4.508c-1.141 0-2.318.664-2.66 1.905A9.76 9.76 0 001.5 12c0 1.598.37 3.11.992 4.595.342 1.24 1.518 1.905 2.66 1.905h1.932l4.5 4.5c.944.945 2.56.276 2.56-1.06V4.06zM16.5 12a4.5 4.5 0 01-4.5 4.5v-9a4.5 4.5 0 014.5 4.5z" />
+        </svg>
+      </button>
+    </div>
+    <button id="close-chat" class="close-chat-btn" aria-label="Fechar chat">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+           stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </header>
+
+  <div id="chat-messages" class="chat-messages">
+    <div class="message-wrapper bot">
+      <div class="message-content">
+        <p>Olá! 👋 Sou o assistente virtual da Convita. Como posso ajudar com seu projeto hoje?</p>
+      </div>
+    </div>
+  </div>
+
+  <form id="chat-form" class="chat-form">
+    <input type="text" id="chat-input" placeholder="Digite sua mensagem..." autocomplete="off">
+    <button type="button" id="mic-btn" class="mic-btn" aria-label="Enviar mensagem por voz">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M8.25 4.5a3.75 3.75 0 117.5 0v8.25a3.75 3.75 0 11-7.5 0V4.5z" />
+        <path d="M6 10.5a.75.75 0 01.75.75v1.5a5.25 5.25 0 1010.5 0v-1.5a.75.75 0 011.5 0v1.5a6.75 6.75 0 11-13.5 0v-1.5A.75.75 0 016 10.5zM12 18.75a.75.75 0 01.75.75v.008c0 .414.336.75.75.75h.008a.75.75 0 01.75-.75v-.008a.75.75 0 01-.75-.75h-.008a.75.75 0 01-.75.75v.008c0 .414.336.75.75.75h.008a.75.75 0 01.75-.75v-.008a.75.75 0 01-.75-.75h-.008a.75.75 0 01-.75.75z" />
+      </svg>
+    </button>
+    <button type="submit" class="send-btn" aria-label="Enviar mensagem">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+        <path
+          d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z" />
+      </svg>
+    </button>
+  </form>
+</div>
+
+<footer class="simulated-footer">
+  <p>
+    <a href="https://convitads.web.app/home" target="_blank">Desenvolvido baseado no site oficial da Convita</a>.
+  </p>
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,113 @@
+/* --- Estilos para Desktop (min-width: 768px) --- */
+@media (min-width: 768px) {
+
+  :root {
+    --footer-height-desktop: 3.5rem; /* Altura do footer no desktop */
+  }
+
+  /* --- Simulação da Página (ATUALIZADO) --- */
+
+  /* O page-wrapper em desktop */
+  .page-wrapper {
+    padding-top: 8rem; /* Espaço maior para o header de desktop */
+    padding-bottom: 6rem;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .simulated-header {
+    padding: 2rem 5rem;
+  }
+  .simulated-header nav {
+    display: flex;
+    gap: 1.5rem;
+  }
+  .simulated-header nav a {
+    color: var(--white);
+    text-decoration: none;
+    padding: 0.5rem 1.25rem;
+    border: 2px solid var(--white);
+    border-radius: 99px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+  }
+  .simulated-header nav a:hover {
+    background-color: var(--white);
+    color: var(--convita-orange);
+  }
+  .simulated-main {
+    padding: 6rem 5rem;
+    text-align: left;
+    max-width: 1200px;
+    margin: 0 auto;
+    /* Removemos o min-height daqui, pois o page-wrapper cuida disso */
+    align-items: flex-start;
+  }
+  .simulated-main h1 {
+    font-size: 4rem;
+    max-width: 700px;
+  }
+  .simulated-main p {
+    font-size: 1.25rem;
+    max-width: 600px;
+  }
+  .button-group {
+    flex-direction: row;
+    gap: 1.5rem;
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  .btn-secondary:hover {
+    background-color: var(--white);
+    color: var(--convita-orange);
+  }
+
+  /* --- Bolha do Chat (Desktop - ATUALIZADO) --- */
+  .chat-bubble {
+    bottom: calc(1.5rem + var(--footer-height-desktop)); /* Posição acima do footer */
+    right: 1.5rem;
+    width: 4rem;
+    height: 4rem;
+  }
+  .chat-bubble svg {
+    width: 2.25rem;
+  }
+
+  /* ... (Janela do Chat (Desktop) - sem mudanças) ... */
+  .chat-window {
+    top: auto;
+    left: auto;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 370px;
+    height: 600px;
+    border-radius: 1rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    border: 1px solid var(--medium-gray);
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+  }
+  .chat-window.open {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  .chat-header {
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    padding: 1rem 1.25rem;
+  }
+  .chat-form {
+    padding: 0.75rem;
+  }
+
+  /* --- Estilo do Footer para Desktop (ATUALIZADO) --- */
+  .simulated-footer {
+    padding: 1rem;
+    font-size: 0.9rem;
+    min-height: var(--footer-height-desktop);
+  }
+}
