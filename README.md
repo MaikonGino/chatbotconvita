@@ -1,5 +1,7 @@
 # Assistente Virtual Convita (Chatbot PNL) 🤖
 
+[![Demo ao Vivo](https://img.shields.io/badge/Demo_ao_Vivo-Acessar-EF7954?style=for-the-badge&logo=vercel&logoColor=white)](https://chatbotconvita.vercel.app/)
+
 ![Status](https://img.shields.io/badge/Status-Concluído-brightgreen?style=for-the-badge)
 ![GitHub last commit](https://img.shields.io/github/last-commit/MaikonGino/chatbotconvita?style=for-the-badge)
 
@@ -23,7 +25,7 @@ Este projeto foi construído com uma arquitetura desacoplada (Headless), separan
 * **Front-end (O "Rosto"):**
     * Construído em **HTML5**, **CSS3** (Mobile First) e **JavaScript** puro.
     * Responsável pela interface do chat (UX/UI) e pelas APIs de voz do navegador (Web Speech API).
-    * Hospedado de forma estática no **GitHub Pages**.
+    * Hospedado de forma estática no **Vercel**.
 
 * **Back-end (O "Cérebro"):**
     * Uma API REST construída em **Python** com o micro-framework **Flask**.
@@ -44,8 +46,11 @@ Este projeto foi construído com uma arquitetura desacoplada (Headless), separan
 
 ### Hospedagem (Deploy)
 ![Hugging Face Spaces](https://img.shields.io/badge/Hugging%20Face-Spaces-yellow?style=for-the-badge&logo=huggingface&logoColor=black)
-![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-222222?style=for-the-badge&logo=github&logoColor=white)
+![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
 
-## 👨‍💻 Autor
+## 👨‍💻 Autores
 
-Projeto desenvolvido por **Maikon Gino**.
+Projeto desenvolvido por:
+
+* [**Maikon Gino**](https://github.com/MaikonGino)
+* [**João Augusto Selegatto Pacolla**](https://github.com/JPacolla376)
