@@ -1,6 +1,8 @@
 /* --- Variáveis de Cor (Baseado no site Convita) --- */
 :root {
   --convita-orange: #EF7954;
+  /* NOVO: Cor mais escura para textos pequenos (passar no teste de contraste WCAG) */
+  --convita-orange-dark: #d35f3c;
   --convita-light-orange: #F9B294;
   --convita-text: #4A4A4A;
   --white: #FFFFFF;
@@ -9,40 +11,40 @@
   --bubble-bot: var(--light-gray);
   --bubble-user: var(--convita-orange);
   --red-listening: #e53e3e;
-  --footer-height-mobile: 4.5rem; /* Altura aproximada do footer no mobile */
+  --footer-height-mobile: 4.5rem;
 }
 
-/* ... (Reset Básico & Fonte) ... */
+/* --- Reset & Body --- */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
+
 html {
-  height: 100%; /* Garante que o HTML ocupe toda a altura */
+  height: 100%;
 }
+
 body {
   font-family: 'Poppins', sans-serif;
   color: var(--convita-text);
-  background-color: var(--white); /* Cor de fundo base */
-  min-height: 100%; /* Garante que o body ocupe no mínimo a altura da tela */
+  background-color: var(--white);
+  min-height: 100%;
   display: flex;
   flex-direction: column;
 }
 
-/* --- Simulação da Página da Convita (ATUALIZADO) --- */
-
-/* NOVO: Invólucro que cresce e empurra o footer para baixo */
+/* --- Simulação da Página --- */
 .page-wrapper {
-  flex-grow: 1; /* A MÁGICA: Faz este elemento crescer e ocupar o espaço */
+  flex-grow: 1;
   background: linear-gradient(90deg, var(--convita-orange) 0%, var(--convita-light-orange) 100%);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  position: relative; /* Para o header absoluto funcionar */
-  padding-top: 6rem; /* Espaço para o header */
-  padding-bottom: 3rem; /* Espaço na parte inferior */
+  position: relative;
+  padding-top: 6rem;
+  padding-bottom: 3rem;
 }
 
 .simulated-header {
@@ -52,18 +54,21 @@ body {
   align-items: center;
   padding: 1.5rem 1rem;
   color: var(--white);
-  position: absolute; /* Header fica flutuando no topo do .page-wrapper */
+  position: absolute;
   top: 0;
   left: 0;
   z-index: 10;
 }
+
 .simulated-header .logo {
   font-weight: 700;
   font-size: 1.5rem;
 }
+
 .simulated-header nav {
   display: none;
 }
+
 .simulated-main {
   padding: 3rem 1.5rem;
   text-align: center;
@@ -71,22 +76,26 @@ body {
   z-index: 1;
   max-width: 90%;
 }
+
 .simulated-main h1 {
   font-size: 2.5rem;
   font-weight: 700;
   line-height: 1.2;
 }
+
 .simulated-main p {
   font-size: 1.1rem;
   margin-top: 1rem;
   opacity: 0.9;
 }
+
 .button-group {
   margin-top: 2rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
+
 .btn-primary, .btn-secondary {
   display: inline-block;
   padding: 0.75rem 1.5rem;
@@ -95,26 +104,26 @@ body {
   text-decoration: none;
   transition: all 0.2s ease;
 }
+
 .btn-primary {
   background-color: var(--white);
   color: var(--convita-orange);
   border: 2px solid var(--white);
 }
+
 .btn-secondary {
   background-color: transparent;
   color: var(--white);
   border: 2px solid var(--white);
 }
 
-
-/* --- Bolha do Chat (ATUALIZADO) --- */
+/* --- Bolha do Chat (Com Animação) --- */
 .chat-bubble {
   position: fixed;
-  /* Posição calculada para ficar acima do footer */
-  bottom: calc(1rem + var(--footer-height-mobile));
-  right: 1rem;
-  width: 3.5rem;
-  height: 3.5rem;
+  bottom: calc(1.5rem + var(--footer-height-mobile));
+  right: 1.5rem;
+  width: 4.5rem;
+  height: 4.5rem;
   background: var(--convita-orange);
   color: var(--white);
   border-radius: 50%;
@@ -123,23 +132,46 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
   z-index: 999;
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  transition: transform 0.2s ease, opacity 0.2s ease, box-shadow 0.2s ease;
+  animation: pulse-attention 2s infinite ease-in-out;
 }
-/* ... (Resto da bolha e janela do chat sem mudanças) ... */
+
 .chat-bubble svg {
-  width: 2rem;
-  height: 2rem;
+  width: 2.25rem;
+  height: 2.25rem;
 }
+
 .chat-bubble:hover {
-  transform: scale(1.1);
+  transform: scale(1.08);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.35);
+  animation: none;
 }
+
 .chat-bubble.open {
   opacity: 0;
   transform: scale(0);
   pointer-events: none;
+  animation: none;
 }
+
+@keyframes pulse-attention {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35), 0 0 0 5px rgba(255, 255, 255, 0.3);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  }
+}
+
+/* --- Janela do Chat --- */
 .chat-window {
   position: fixed;
   top: 0;
@@ -157,13 +189,14 @@ body {
   pointer-events: none;
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
+
 .chat-window.open {
   opacity: 1;
   transform: translateY(0);
   pointer-events: auto;
 }
 
-/* --- Estilos Internos do Chat (sem mudanças) --- */
+/* --- Estilos Internos do Chat --- */
 .chat-header {
   background: linear-gradient(90deg, var(--convita-orange) 0%, var(--convita-light-orange) 100%);
   color: var(--white);
@@ -172,44 +205,66 @@ body {
   justify-content: space-between;
   align-items: center;
 }
+
 .chat-header .header-content {
   display: flex;
   align-items: center;
   gap: 0.75rem;
 }
+
 .chat-header h3 {
   font-weight: 600;
   font-size: 1.2rem;
 }
+
+/* Botão de Voz (Toggle no Header) */
 .voice-toggle-btn {
-  background: none;
-  border: none;
-  color: var(--white);
-  opacity: 0.7;
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.6);
   cursor: pointer;
   padding: 0;
-  width: 1.5rem;
-  height: 1.5rem;
-  transition: opacity 0.2s ease;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
 .voice-toggle-btn:hover {
-  opacity: 1.0;
+  border-color: rgba(255, 255, 255, 1);
+  color: rgba(255, 255, 255, 1);
 }
+
 .voice-toggle-btn.active {
-  opacity: 1.0;
+  background: var(--white);
+  border-color: var(--white);
+  color: var(--convita-orange);
 }
+
+.voice-toggle-btn svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
 .voice-toggle-btn .icon-on {
   display: none;
 }
+
 .voice-toggle-btn .icon-off {
   display: block;
 }
+
 .voice-toggle-btn.active .icon-on {
   display: block;
 }
+
 .voice-toggle-btn.active .icon-off {
   display: none;
 }
+
 .close-chat-btn {
   background: none;
   border: none;
@@ -219,6 +274,8 @@ body {
   width: 1.5rem;
   height: 1.5rem;
 }
+
+/* --- Mensagens --- */
 .chat-messages {
   flex: 1;
   padding: 1rem;
@@ -228,104 +285,206 @@ body {
   flex-direction: column;
   gap: 0.75rem;
 }
+
 .message-wrapper {
   display: flex;
   max-width: 85%;
 }
+
 .message-wrapper.user {
   justify-content: flex-end;
   align-self: flex-end;
 }
+
 .message-wrapper.bot {
   justify-content: flex-start;
   align-self: flex-start;
 }
+
 .message-content {
   padding: 0.75rem 1rem;
   border-radius: 1.25rem;
   line-height: 1.4;
 }
+
 .message-wrapper.user .message-content {
   background-color: var(--bubble-user);
   color: var(--white);
   border-bottom-right-radius: 0.5rem;
 }
+
 .message-wrapper.bot .message-content {
   background-color: var(--bubble-bot);
   color: var(--convita-text);
   border-bottom-left-radius: 0.5rem;
 }
+
+/* --- Chat Form (Layout 2 Linhas) --- */
 .chat-form {
   display: flex;
+  flex-direction: column;
   padding: 0.75rem;
   border-top: 1px solid var(--medium-gray);
   background-color: var(--white);
-  gap: 0.5rem;
+  gap: 0.75rem;
 }
+
+.chat-input-row.full-width {
+  width: 100%;
+}
+
 #chat-input {
-  flex: 1;
+  width: 100%;
   border: 1px solid var(--medium-gray);
   border-radius: 99px;
-  padding: 0.75rem 1rem;
+  padding: 0.875rem 1.25rem;
   font-size: 1rem;
 }
+
 #chat-input:focus {
   outline: none;
   border-color: var(--convita-orange);
-  box-shadow: 0 0 0 2px var(--convita-light-orange);
+  box-shadow: 0 0 0 3px var(--convita-light-orange);
 }
-.mic-btn {
-  background-color: var(--light-gray);
-  color: var(--convita-text);
-  border: none;
+
+.chat-controls-row {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+}
+
+/* Botões de Controle (Base) */
+.control-btn {
+  width: 3.5rem;
+  height: 3.5rem;
   border-radius: 50%;
-  width: 3rem;
-  height: 3rem;
+  border: none;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: all 0.2s ease;
+  background-color: var(--light-gray);
+  color: var(--convita-text);
+  flex-shrink: 0;
 }
-.mic-btn svg {
+
+.control-btn:hover {
+  background-color: var(--medium-gray);
+  transform: scale(1.05);
+}
+
+.control-btn svg {
   width: 1.5rem;
   height: 1.5rem;
 }
-.mic-btn:hover {
-  background-color: var(--medium-gray);
+
+/* Botão Enviar */
+.send-btn {
+  background-color: var(--convita-orange);
+  color: var(--white);
 }
+
+.send-btn:hover {
+  background-color: #d86845;
+}
+
+/* Botão Microfone */
 .mic-btn.is-listening {
   background-color: var(--red-listening);
   color: var(--white);
   animation: pulse 1.5s infinite;
 }
+
 @keyframes pulse {
-  0% { box-shadow: 0 0 0 0 rgba(229, 62, 62, 0.7); }
-  70% { box-shadow: 0 0 0 10px rgba(229, 62, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(229, 62, 0); }
-}
-.send-btn {
-  background-color: var(--convita-orange);
-  color: var(--white);
-  border: none;
-  border-radius: 50%;
-  width: 3rem;
-  height: 3rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-.send-btn svg {
-  width: 1.5rem;
-  height: 1.5rem;
-}
-.send-btn:hover {
-  background-color: #d86845;
+  0% {
+    box-shadow: 0 0 0 0 rgba(229, 62, 62, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 15px rgba(229, 62, 62, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(229, 62, 62, 0);
+  }
 }
 
-/* --- Estilo do Footer (ATUALIZADO) --- */
+/* --- Dropdown Customizado de Idioma --- */
+.custom-dropdown {
+  position: relative;
+}
+
+.lang-btn {
+  padding: 0;
+  overflow: hidden;
+}
+
+#current-lang-flag {
+  width: 2rem;
+  height: auto;
+  border-radius: 4px;
+}
+
+.lang-menu {
+  position: absolute;
+  bottom: 110%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--white);
+  border-radius: 1rem;
+  padding: 0.5rem;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+  border: 1px solid var(--medium-gray);
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 160px;
+  z-index: 20;
+  opacity: 1;
+  visibility: visible;
+  transition: all 0.2s ease;
+}
+
+.lang-menu.hidden {
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(-50%, 10px);
+}
+
+.lang-option {
+  background: none;
+  border: none;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-size: 1rem;
+  font-family: 'Poppins', sans-serif;
+  color: var(--convita-text);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: background-color 0.2s ease;
+}
+
+.lang-option:hover {
+  background-color: var(--light-gray);
+}
+
+.lang-option.selected {
+  background-color: var(--convita-light-orange);
+  color: #333;
+  font-weight: 600;
+}
+
+.flag-img {
+  width: 24px;
+  height: auto;
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Footer --- */
 .simulated-footer {
   background-color: #F8F8F8;
   padding: 1rem;
@@ -338,17 +497,19 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* Garante que o footer não encolha */
   flex-shrink: 0;
 }
+
 .simulated-footer p {
-  color: #777; /* Cor do texto normal */
+  color: #777;
 }
+
 .simulated-footer a {
-  color: var(--convita-orange); /* Cor do link */
-  font-weight: 500;
+  color: var(--convita-orange-dark); /* FIX ACESSIBILIDADE: Cor mais escura */
+  font-weight: 600;
   text-decoration: none;
 }
+
 .simulated-footer a:hover {
   text-decoration: underline;
 }
