@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const langBtn = document.getElementById('lang-btn');
   const langMenu = document.getElementById('lang-menu');
   const langOptions = document.querySelectorAll('.lang-option');
-  const currentLangFlag = document.getElementById('current-lang-flag'); // Agora é uma <img>
+  const currentLangFlag = document.getElementById('current-lang-flag');
   const micBtn = document.getElementById('mic-btn');
   const voiceToggleBtn = document.getElementById('voice-toggle');
   const openChatBtn = document.getElementById('chat-bubble');
@@ -13,8 +13,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const chatInput = document.getElementById('chat-input');
   const chatMessages = document.getElementById('chat-messages');
 
-  let currentLang = 'pt-BR';
+  let currentLang = 'pt-BR'; // O idioma que o usuário selecionou
 
+  // --- Lógica do Menu Customizado ---
   langBtn.addEventListener('click', (e) => {
     e.stopPropagation();
     langMenu.classList.toggle('hidden');
@@ -28,12 +29,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   langOptions.forEach(option => {
     option.addEventListener('click', () => {
-      currentLang = option.getAttribute('data-lang');
-
-      // --- ATUALIZADO: Pega o SRC da imagem da bandeira clicada ---
+      currentLang = option.getAttribute('data-lang'); // ATUALIZA A VARIÁVEL GLOBAL
       const newFlagSrc = option.querySelector('.flag-img').src;
-      currentLangFlag.src = newFlagSrc; // Atualiza a imagem do botão principal
-      // ----------------------------------------------------------
+      currentLangFlag.src = newFlagSrc;
 
       langOptions.forEach(opt => opt.classList.remove('selected'));
       option.classList.add('selected');
@@ -42,7 +40,6 @@ document.addEventListener('DOMContentLoaded', () => {
       if (recognition) {
         recognition.lang = currentLang;
       }
-      console.log("Idioma alterado para:", currentLang);
     });
   });
 
@@ -62,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (userInput) {
       addMessage(userInput, 'user');
       chatInput.value = '';
-      getBotResponse(userInput);
+      getBotResponse(userInput); // Chama a função principal
     }
   });
 
@@ -88,8 +85,13 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       const response = await fetch(API_URL, {
         method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({question: userInput})
+        headers: { 'Content-Type': 'application/json' },
+        // --- ATUALIZAÇÃO AQUI: Enviamos o idioma selecionado ---
+        body: JSON.stringify({
+          question: userInput,
+          user_lang: currentLang // Envia o idioma do front-end
+        })
+        // --------------------------------------------------
       });
       if (!response.ok) throw new Error(`Erro na API: ${response.statusText}`);
       const data = await response.json();
@@ -114,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let voices = [];
 
   function mapLangCode(lang) {
-    const langMap = {'en': 'en-US', 'pt': 'pt-BR', 'es': 'es-ES', 'fr': 'fr-FR', 'de': 'de-DE', 'it': 'it-IT'};
+    const langMap = { 'en': 'en-US', 'pt': 'pt-BR', 'es': 'es-ES', 'fr': 'fr-FR', 'de': 'de-DE', 'it': 'it-IT' };
     return langMap[lang] || 'pt-BR';
   }
 
@@ -135,7 +137,6 @@ document.addEventListener('DOMContentLoaded', () => {
   function loadVoices() {
     voices = speechSynthesis.getVoices();
   }
-
   speechSynthesis.onvoiceschanged = loadVoices;
   loadVoices();
 
@@ -170,7 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
           recognition.lang = currentLang;
           recognition.start();
         }
-      } catch (err) {
+      } catch(err) {
         console.error("Erro ao iniciar reconhecimento: ", err);
         if (err.name === 'not-allowed') {
           addMessage("Para usar a voz, você precisa me dar permissão para usar o microfone.", "bot");
@@ -187,7 +188,7 @@ document.addEventListener('DOMContentLoaded', () => {
     recognition.onresult = (event) => {
       const transcript = event.results[0][0].transcript;
       chatInput.value = transcript;
-      const submitEvent = new Event('submit', {bubbles: true, cancelable: true});
+      const submitEvent = new Event('submit', { bubbles: true, cancelable: true });
       chatForm.dispatchEvent(submitEvent);
     };
 
